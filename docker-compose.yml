@@ -1,0 +1,36 @@
+services:
+  jupyter-notebook-service:
+    container_name: jupyter-notebook-container
+    image: jupyter-notebook-spark
+    platform: linux/amd64
+    volumes:
+      - "./bitso_challenge:/home/jovyan/bitso_challenge"
+    ports:
+      - "8888:8888"
+    networks:                                                                                      
+      - db  
+    depends_on:                                                                                    
+      - db 
+  
+  db:
+      image: postgres
+      restart: always
+      user: postgres
+      volumes:
+      - ./01_create_tables.sql:/docker-entrypoint-initdb.d/01_create_tables.sql
+      environment:
+        POSTGRES_DB : "bitso"
+        POSTGRES_PASSWORD : "bitso"
+      ports:
+       - "5432:5432"
+      networks:
+      - db
+      healthcheck:
+       test: [ "CMD", "pg_isready" ]
+       interval: 10s
+       timeout: 5s
+       retries: 5
+       
+networks:
+  db:
+    driver: bridge
