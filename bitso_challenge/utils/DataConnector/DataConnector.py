@@ -23,7 +23,7 @@ class DataConnector:
         self.sc = self.spark.sparkContext
         self.HEADERS = {
             "accept": "application/json",
-            "x-cg-demo-api-key": "CG-Jzz57Ym47ZTDMQGYZ6nJorcW",
+            "x-cg-demo-api-key": "<API_KEY>",
             'User-agent': 'student 1.0'
         }
         self.EXCHANGES_URL =  "https://api.coingecko.com/api/v3/exchanges?per_page=10&page=1"
