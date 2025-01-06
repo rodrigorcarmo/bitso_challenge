@@ -34,7 +34,7 @@ Follow these steps to run the project:
         pytest
         ```
 
-6. **Access PostgreSQL**
+6. **Access PostgreSQL to view the tables and query them**
     - Use the VSCode extension from Chris Kolkman.
     - Configure it with the following settings:
         - **Hostname:** 0.0.0.0
