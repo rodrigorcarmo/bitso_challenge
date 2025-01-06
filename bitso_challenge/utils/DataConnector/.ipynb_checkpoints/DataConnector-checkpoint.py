@@ -72,7 +72,7 @@ class DataConnector:
                 response = requests.get(url, headers=self.HEADERS)
                 response.raise_for_status()
                 data = response.json()
-                data['exchange_id'] = exchange_id  # Include the exchange_id in the data
+                data['exchange_id'] = exchange_id
                 return data
             except requests.RequestException as e:
                 print(f"Error fetching shared markets data for {exchange_id}: {e}")
@@ -124,6 +124,7 @@ class DataConnector:
             return None
         
     def read_market_usd_volume(self, coin_id_list: list) -> Optional[DataFrame]:
+        time.sleep(30)
         def fetch_data(coin: dict) -> Optional[DataFrame]:
             try:
                 url = self.COIN_DATA.replace("id", coin["base_id"])
@@ -162,7 +163,7 @@ class DataConnector:
                 .option("url", "jdbc:postgresql://db:5432/bitso") \
                 .option("driver", "org.postgresql.Driver")\
                 .option("dbtable", table_name) \
-                .option("user", "bitso") \
+                .option("user", "postgres") \
                 .option("password", "bitso") \
                 .mode("overwrite") \
                 .save()
